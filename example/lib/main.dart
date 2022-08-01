@@ -32,7 +32,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
- late Stream response;
+  Stream? response;
 
   getServerResponse(){
     final stream = ServerSiteEventConnect.connect(uri: 'https://www.w3schools.com/html/demo_sse.php', closeOnError: true);
@@ -50,18 +50,18 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // StreamBuilder(
-            //   initialData: 0,
-            //     stream: response,
-            //     builder: (context, AsyncSnapshot<dynamic> snapshot){
-            //       if (snapshot.connectionState == ConnectionState.waiting) {
-            //         return const CircularProgressIndicator();
-            //       }
-            //       return Text(
-            //         snapshot.data!.toString(),
-            //         style: const TextStyle(fontSize: 50, color: Colors.blue),
-            //       );
-            //     }),
+            StreamBuilder(
+              initialData: 0,
+                stream: response,
+                builder: (context, AsyncSnapshot<dynamic> snapshot){
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  }
+                  return Text(
+                    snapshot.data!.toString(),
+                    style: const TextStyle(fontSize: 50, color: Colors.blue),
+                  );
+                }),
             const Text(
               'You have pushed the button this many times:',
             ),
